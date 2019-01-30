@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace AspNetCoreSpike.Controllers
 {
@@ -10,11 +11,16 @@ namespace AspNetCoreSpike.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        public ValuesController(IOptions<ApplicationSettings> settings)
+        {
+            ApplicationSettings.Current = settings.Value;         
+        }
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var url = ApplicationSettings.Current.UrlBasePath;
+           return new string[] { "value1", url };
         }
 
         // GET api/values/5
@@ -41,5 +47,10 @@ namespace AspNetCoreSpike.Controllers
         public void Delete(int id)
         {
         }
+    }
+    public class ApplicationSettings
+    {
+        public string UrlBasePath { get; set; }
+        public static ApplicationSettings Current { get; set; }
     }
 }
