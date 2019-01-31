@@ -19,6 +19,7 @@ namespace AspNetCoreSpike
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            ApplicationSettings.Current = Configuration.Get<ApplicationSettings>();
         }
 
         public IConfiguration Configuration { get; }

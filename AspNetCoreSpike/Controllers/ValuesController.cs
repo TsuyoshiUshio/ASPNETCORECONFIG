@@ -11,10 +11,6 @@ namespace AspNetCoreSpike.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        public ValuesController(IOptions<ApplicationSettings> settings)
-        {
-            ApplicationSettings.Current = settings.Value;         
-        }
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
